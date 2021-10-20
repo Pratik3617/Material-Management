@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="/static/javascript/mm.js"></script>
+
+    <title>Category Interface</title>
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+            letter-spacing: 1px;
+        }
+
+        .root {
+            padding: 1rem;
+        }
+
+        .center {
+            display: flex;
+            justify-content: center;
+        }
+
+        .Container {
+            width: 52rem;
+            height: auto;
+            padding: 1rem;
+            border-radius: 1rem;
+        }
+
+        .Container-head {
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .Container-head span {
+            font-size: 1.5rem;
+            font-weight: bold;
+            padding-left: .5rem;
+            color:#6F1E51;
+        }
+        .col {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .col input {
+            width: 15rem;
+        }
+        .gap {
+            margin-bottom: 1rem;
+        }
+        button{
+            width:23rem;
+            color:#fff;
+            background:#8e44ad;
+            border-radius:0.5rem;
+            border:none;
+            height:2.5rem;
+            font-weight:bold;
+            letter-spacing:2px;
+        }
+        .set{
+            display:flex;
+            flex-direction:row;
+        }
+        .set input{
+            width:21rem;
+        }
+        .col select{
+            width:15rem;
+            height:2.4rem;
+            background:#fff;
+            border-radius:5px;
+        }
+        .set2 input{
+            width:23rem;
+        }
+        .input input{
+            width:48rem;
+        }
+    </style>
+
+</head>
+<body>
+
+    <div class="root center">
+        <form action="/submitFinalProducts" method="post" enctype="multipart/form-data">{% csrf_token %}
+            <div class="Container">
+
+                <div class="Container-head center">
+
+                    <span>
+                        FINAL PRODUCTS
+                    </span>
+                </div>
+
+                <div class="col gap" >
+
+                    <select name="categoryId" id="cid">
+                        <option>- SELECT CATEGORY -</option>
+                    </select>
+
+                    <select name="subcategoryId" id="scid">
+                        <option >- SELECT SUBCATEGORY -</option>
+                    </select>
+
+                    <select name="productId" id="pid">
+                        <option>- SELECT PRODUCT -</option>
+                    </select>
+
+                </div>
+
+                <div class="col gap" >
+
+                    <div class="input">
+                        <input class="form-control" type="text" name="finalProductName" placeholder="Final Product Name">
+                    </div>
+
+                </div>
+
+                <div class="col gap" >
+                    <div>
+                        <input class="form-control" type="text" name="size" placeholder="Size">
+                    </div>
+
+                    <div>
+                        <select name="sizeUnit">
+                            <option>- SELECT UNIT -</option>
+                            <option value="mm">mm</option>
+                            <option value="cm">cm</option>
+                            <option value="meters">meters</option>
+                            <option value="inches">inches</option>
+                            <option value="foot">foot</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <input class="form-control" type="text" name="color" placeholder="Color">
+                    </div>
+
+
+                </div>
+
+                <div class="col gap" >
+
+                    <div>
+                        <input class="form-control" type="text" name="weight" placeholder="Weight">
+                    </div>
+
+                    <div>
+                        <select name="weightUnit">
+                            <option>- SELECT UNIT -</option>
+                            <option value="gm">gm</option>
+                            <option value="kg">kg</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <input class="form-control" type="text" name="price" placeholder="Price">
+                    </div>
+
+                </div>
+
+
+                <div class="col gap" >
+
+                    <div class="set2">
+                        <input class="form-control" type="text" name="stock" placeholder="Stock">
+                    </div>
+
+                    <div class="set">
+                        <input type="file" accept="image/*" id="picture" name="picture" class="form-control" placeholder="Picture">
+                        &nbsp;<img src="/static/Images/noimage.png" id="pic" width="30">
+                    </div>
+
+                </div>
+
+                <div class="col gap">
+                    <button type="submit">SUBMIT</button>
+                    <button type="reset">RESET</button>
+                </div>
+
+                {% if status %}
+                    <div class="center" style="color:green">
+                        Record Submitted Successfully
+                    </div>
+                {% elif status %}
+                    <div class="center" style="color:red">
+                        Record not Submitted
+                    </div>
+                {% endif %}
+
+            </div>
+        </form>
+    </div>
+
+
+</body>
+</html>

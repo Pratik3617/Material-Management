@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="/static/javascript/mm.js"></script>
+
+    <title>Category Interface</title>
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+            letter-spacing: 1px;
+        }
+
+        .root {
+            padding: 1rem;
+        }
+
+        .center {
+            display: flex;
+            justify-content: center;
+        }
+
+        .Container {
+            width: 40rem;
+            height: auto;
+            padding: 1rem;
+            border-radius: 1rem;
+        }
+
+        .Container-head{
+            display:flex;
+            justify-content:flex-end;
+        }
+
+        .Container-head button{
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            height:2.5rem;
+            color:#fff;
+            background:#8e44ad;
+            width:12rem;
+            border-radius:5px;
+            margin-bottom:5px;
+        }
+        .Container-head button:hover{
+            cursor:pointer;
+            text-decoration:none;
+        }
+        .col {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .col input {
+            width: 17.5rem;
+        }
+        .gap {
+            margin-bottom: 1rem;
+        }
+        button{
+            width:17.5rem;
+            color:#fff;
+            background:#3742fa;
+            border-radius:0.5rem;
+            border:none;
+            height:2.5rem;
+            font-weight:bold;
+            letter-spacing:2px;
+        }
+        .set{
+            display:flex;
+            flex-direction:row;
+        }
+        .set input{
+            width:15rem;
+        }
+    </style>
+
+</head>
+<body>
+
+    <div class="root center">
+        <form action="/submitCategory" method="post" enctype="multipart/form-data">{% csrf_token %}
+            <div class="Container">
+
+                <a href="/displayallCategories">
+                    <div class="Container-head">
+                        <button>List Categories</button>
+                    </div>
+                </a>
+
+                <div class="col gap">
+                    <div>
+                        <input type="text" name="categoryName" class="form-control" placeholder="Category Name">
+                    </div>
+                    <div class="set">
+                        <input type="file" id="picture" name="icon" class="form-control" placeholder="Icon">
+                        &nbsp;<img src="/static/Images/noimage.png" id="pic" width="30">
+                    </div>
+                </div>
+
+                <div class="col gap">
+                    <button type="submit">SUBMIT</button>
+                    <button type="reset">RESET</button>
+                </div>
+
+                {% if status %}
+                    <div class="center" style="color:green">
+                        Record Submitted Successfully
+                    </div>
+                {% elif status %}
+                    <div class="center" style="color:red">
+                        Record not Submitted
+                    </div>
+                {% endif %}
+
+            </div>
+        </form>
+    </div>
+
+
+</body>
+</html>

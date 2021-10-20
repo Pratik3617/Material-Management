@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="/static/javascript/mm.js"></script>
+
+    <title>Subcategory Interface</title>
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+            letter-spacing: 1px;
+        }
+
+        .root {
+            padding: 1rem;
+        }
+
+        .center {
+            display: flex;
+            justify-content: center;
+        }
+
+        .Container {
+            width: 40rem;
+            height: auto;
+            padding: 1rem;
+            border-radius: 1rem;
+        }
+
+        .Container-head {
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .Container-head span {
+            font-size: 1.5rem;
+            font-weight: bold;
+            padding-left: .5rem;
+            color:#6F1E51;
+        }
+        .col {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .col input {
+            width: 17.5rem;
+        }
+        .gap {
+            margin-bottom: 1rem;
+        }
+        button{
+            width:17.5rem;
+            color:#fff;
+            background:#3742fa;
+            border-radius:0.5rem;
+            border:none;
+            height:2.5rem;
+            font-weight:bold;
+            letter-spacing:2px;
+        }
+
+        .set{
+            display:flex;
+            flex-direction:row;
+        }
+        .set input{
+            width:15rem;
+        }
+        select{
+            width:17.5rem;
+            height:2.3rem;
+            background:#fff;
+            border-radius:5px;
+        }
+    </style>
+
+</head>
+<body>
+
+    <div class="root center">
+        <form action="/submitsubCategory" method="post" enctype="multipart/form-data">{% csrf_token %}
+            <div class="Container">
+
+                <div class="Container-head center">
+                    <span>
+                        SUBCATEGORY INTERFACE
+                    </span>
+                </div>
+
+                <div class="col gap">
+                    <select name="categoryId" id="cid">
+                        <option>- SELECT CATEGORY -</option>
+                    </select>
+                    <div>
+                        <input type="text" name="subcategoryName" class="form-control" placeholder="Subcategory Name">
+                    </div>
+                </div>
+
+                <div class="col gap">
+                    <div>
+                        <input type="text" name="description" class="form-control" placeholder="Description">
+                    </div>
+
+                    <div class="set">
+                        <input type="file" accept="image/*" id="picture" name="icon" class="form-control" placeholder="Icon">
+                        &nbsp;<img src="/static/Images/noimage.png" id="pic" width="30">
+                    </div>
+
+                </div>
+
+                <div class="col gap">
+                    <button type="submit">SUBMIT</button>
+                    <button type="reset">RESET</button>
+                </div>
+
+                {% if status %}
+                    <div class="center" style="color:green">
+                        Record Submitted Successfully
+                    </div>
+                {% elif status %}
+                    <div class="center" style="color:red">
+                        Record not Submitted
+                    </div>
+                {% endif %}
+
+            </div>
+        </form>
+    </div>
+
+
+</body>
+</html>

@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
+    <title>Material Management[Employee]</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+            letter-spacing: 1px;
+        }
+        
+        .root {
+            padding: 1rem;
+        }
+        
+        .center {
+            display: flex;
+            justify-content: center;
+        }
+        
+        .gap {
+            margin-bottom: 1rem;
+        }
+        
+        .Container-head img {
+            width: 3rem;
+            height: 3rem;
+        }
+
+        .Container {
+            width: 40rem;
+            height: auto;
+            padding: 1rem;
+            border-radius: 1rem;
+        }
+        
+        .Container-head {
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        .Container-head span {
+            font-size: 1.3rem;
+            font-weight: bold;
+            padding-left: .5rem;
+        }
+        
+        .col {
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .col input {
+            width: 17.5rem;
+        }
+        
+        .col2 {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .col2 div {
+            width: 1rem;
+            margin-left: .5rem;
+        }
+        
+        .col2 input {
+            margin: 0 1rem 0 1rem;
+        }
+
+        select {
+            width: 17.5rem;
+            height: 2.4rem;
+            background-color: #fff;
+            border-radius: .2rem;
+        }
+        
+        .input {
+            margin-left: 1rem;
+            width: 36rem;
+        }
+        .col2 img{
+            width:2rem;
+            height:2rem;
+        }
+        button{
+            width:17.5rem;
+            color:#fff;
+            background:#3742fa;
+            border-radius:0.5rem;
+            border:none;
+            height:2.5rem;
+            font-weight:bold;
+            letter-spacing:2px;
+        }
+        .set{
+            display:flex;
+            flex-direction:row;
+        }
+        .set input{
+            width:15.2rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="root center">
+        <form action="/submitemployeeDetails" method="post" enctype="multipart/form-data">{% csrf_token %}
+            <div class="Container">
+                <div class="Container-head center">
+                    <img src="/static/Images/employee.png">
+                    <span>
+                        Employee Register
+                    </span>
+                </div>
+                <div class="col gap">
+                    <div>
+                        <input class="form-control" type="text" name="firstname" placeholder="First Name">
+                    </div>
+                    <div>
+                        <input class="form-control" type="text" name="lastname" placeholder="Last Name">
+                    </div>
+                </div>
+
+                <div class="col gap">
+
+                    <div class="col2">
+
+                        Gender
+                        <div class="col2">
+                            <input type="radio" value="male" name="gender"/>
+                            <img src="/static/Images/male.png">
+                            <input type="radio" value="female" name="gender"/>
+                            <img src="/static/Images/female.png">
+                        </div>
+
+                    </div>
+
+                    <div>
+                        <input class="form-control" type="date" name="dob" placeholder="dd/mm/yyyy">
+                    </div>
+                </div>
+
+                <div class="gap">
+                    <input class="form-control input" type="text" name="paddress" placeholder="Permanent Address">
+                </div>
+
+                <div class="col gap">
+                    <div>
+                        <select id="state" name="state">
+                            <option>- State -</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <select id="city" name="city">
+                            <option>- City -</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="gap">
+                    <input class="form-control input" type="text" name="caddress" placeholder="Current Address">
+                </div>
+
+                <div class="col gap">
+                    <div>
+                        <input class="form-control" type="email" name="email" placeholder="Email Address">
+                    </div>
+                    <div>
+                        <input class="form-control" type="text" name="mobileno" placeholder="Mobile Number">
+                    </div>
+                </div>
+
+                <div class="col gap">
+                    <div>
+                        <input type="text" name="designation" class="form-control" placeholder="Designation">
+                    </div>
+
+                    <div class="set">
+                        <input type="file" accept="image/*" id="picture" name="picture" class="form-control" placeholder="Picture">
+                        &nbsp;<img src="/static/Images/noimage.png" id="pic" width="30">
+                    </div>
+
+                </div>
+
+                <div class="col gap">
+                    <button type="submit">SUBMIT</button>
+                    <button type="reset">RESET</button>
+                </div>
+
+                {% if status %}
+                    <div class="center" style="color:green">
+                        Record Submitted Successfully
+                    </div>
+                {% elif status %}
+                    <div class="center" style="color:red">
+                        Record not Submitted
+                    </div>
+                {% endif %}
+
+            </div>
+        </form>
+    </div>
+ <script src="/static/javascript/mm.js"></script>
+</body>
+
+</html>

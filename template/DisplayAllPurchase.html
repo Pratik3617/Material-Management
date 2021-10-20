@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>List of All Purchase</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel = "stylesheet" href = "https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css">
+    <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="/static/javascript/mm.js"></script>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        .form-container {
+            background: #d3d3d38f;
+            width: 100%;
+            height: 100vh;
+            padding-top: 1%;
+        }
+        .form-container2 {
+            background: #d3d3d38f;
+            width: 100%;
+            padding: 5%;
+        }
+
+        .form {
+            width: 80%;
+            margin: auto;
+            background-color: white;
+            padding: 1%;
+            border-radius: 10px;
+        }
+        .form2 {
+            width: 99%;
+            margin: auto;
+            background-color: white;
+            padding: 3%;
+            border-radius: 10px;
+        }
+
+        .heading {
+            display: flex;
+            justify-content:center;
+        }
+
+        .heading img {
+            width: 3%;
+            height: 2%;
+        }
+
+        .heading h2 {
+            font-size: 20px;
+            font-weight: bold;
+            letter-spacing: 1px;
+            margin-left: 6px;
+
+        }
+              .gap{
+            margin-top:10px;
+        }
+         .noimage{
+            display:flex;
+            justify-content:center;
+
+        }
+        .btnalign{
+            display:flex;
+            justify-content:center;
+            margin-top:2%;
+        }
+        .btn{
+            width:50%;
+        }
+
+        .Container{
+            margin-top:2%;
+        }
+        .gap2 {
+            margin-bottom: 1rem;
+        }
+        .set{
+            display:flex;
+            flex-direction:row;
+            margin-top:1rem;
+        }
+        .set input{
+            width:15.2rem;
+        }
+        .center {
+            display: flex;
+            justify-content: center;
+        }
+        button{
+            width:10rem;
+            color:#fff;
+            background:#3742fa;
+            border-radius:0.5rem;
+            border:none;
+            height:2.5rem;
+            font-weight:bold;
+            letter-spacing:2px;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <div class="form">
+                <div class="heading">
+                    <h2>Purchase List</h2>
+                </div>
+            <table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Transaction Id</th>
+      <th scope="col">Employee Id</th>
+      <th scope="col">Category<br> Id-Name</th>
+      <th scope="col">Subcategory<br> Id-Name</th>
+      <th scope="col">Product<br> Id-Name</th>
+      <th scope="col">FinalProduct<br> Id-Name</th>
+      <th scope="col">Date</th>
+      <th scope="col">Supplier Id</th>
+      <th scope="col">Stock</th>
+      <th scope="col">Amount</th>
+      <th scope="col">Update</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for row in rows %}
+    <tr>
+      <td>{{ row.0 }}</td>
+      <td>{{ row.1 }}</td>
+      <td>{{ row.2 }}-{{ row.10 }}</td>
+      <td>{{ row.3 }}-{{ row.11 }}</td>
+      <td>{{ row.4 }}-{{ row.12 }}</td>
+      <td>{{ row.5 }}-{{ row.13 }}</td>
+      <td>{{ row.6 }}</td>
+      <td>{{ row.7 }}</td>
+      <td>{{ row.8 }}</td>
+      <td>{{ row.9 }}</td>
+      <td>
+          <div>
+              <a class = "button is-primary modal-button" data="{{ row }}" data-target = "#modal">Edit/Delete</a>
+          </div>
+      </td>
+    </tr>
+   {% endfor %}
+  </tbody>
+</table>
+        </div>
+    </div>
+
+
+                <div id = "modal" class = "modal">
+               <div class = "modal-background"></div>
+               <div class = "modal-content ">
+    <div class="form-container2">
+        <div class="form2">
+            <form action="/editdeletepurchasedata">
+              <input type="hidden" name="transactionid" id="transactionid">
+                <div class="heading">
+                    <h2>Updatae Purchase</h2>
+                </div>
+              <div class="form-row gap">
+                    <div class="col">
+                        <input type="text" name="employeeid" id="employeeid" class="form-control" placeholder="Employee Id">
+                    </div>
+                </div>
+                <div class="form-row gap">
+                    <div class="col">
+                        <select id="categoryid" name="categoryid" class="form-control">
+                            <option>- Select Category -</option>
+                        </select>
+                    </div>
+                    <div class="col">
+                        <select id="subcategoryid" name="subcategoryid" class="form-control">
+                        </select>
+                    </div>
+
+                </div>
+              <div class="form-row gap">
+                  <div class="col">
+                        <select id="productid" name="productid" class="form-control">
+                        </select>
+                    </div>
+                <div class="col">
+                        <select id="finalproductid" name="finalproductid" class="form-control">
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row gap">
+                    <div class="col noimage">
+                        <input type="date" name="date" id="date" class="form-control" placeholder="date">
+                    </div>
+                    <div class="col noimage">
+                        <select class="form-control" name="supplierid" id="supplierid">
+                            <option>Supplier Id</option>
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                        </select>
+                    </div>
+                </div>
+                 <div class="form-row gap">
+                    <div class="col">
+                        <input type="text" name="stock" id="stock" class="form-control" placeholder="Stock">
+                    </div>
+                   <div class="col">
+                        <input type="text" name="amount" id="amount" class="form-control" placeholder="Amount">
+                    </div>
+                </div>
+                <div class="form-row gap">
+                    <div class="col btnalign">
+                        <button type="submit" name="btn" value="Edit" class="btn btn-primary">Edit</button>
+                    </div>
+                    <div class="col btnalign">
+                        <button type="submit" name="btn" value="Delete" class="btn btn-primary">Delete</button>
+                    </div>
+                </div>
+                <div class="form-row gap">
+                    <div class="col btnalign">
+                        {% if status %}
+                        <div style="color:green; font-weight:bold;">Record Submitted Successfully...</div>
+                        {% elif status %}
+                        <div style="color:red; font-weight:bold;">Fail to submit record</div>
+                        {% endif %}
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+               </div>
+               <button class = "modal-close is-large" aria-label="close"></button>
+            </div>
+
+      <script>
+
+           function setdata(data){
+                  data=data.replace("(","")
+                  data=data.replace(")","")
+                  data=data.replaceAll("'","")
+                  data=data.split(",")
+                  return data;
+           }
+
+
+         $(".modal-button").click(function() {
+            var target = $(this).data("target");
+            var data=$(this).attr('data');
+            data=setdata(data)
+            $('#transactionid').val(data[0].trim());
+            $('#employeeid').val(data[1].trim());
+            $('#categoryid').val(data[2].trim());
+            $('#subcategoryid').append($('<option>').text(data[11].trim()).val(data[3].trim()));
+            $('#productid').append($('<option>').text(data[12].trim()).val(data[4].trim()));
+            $('#finalproductid').append($('<option>').text(data[13].trim()).val(data[3].trim()));
+            $('#date').val(data[6].trim());
+            $('#supplierid').val(data[7].trim());
+            $('#stock').val(data[8].trim());
+            $('#amount').val(data[9].trim());
+            $("html").addClass("is-clipped");
+            $(target).addClass("is-active");
+         });
+
+         $(".modal-close").click(function() {
+            $("html").removeClass("is-clipped");
+            $(this).parent().removeClass("is-active");
+         });
+      </script>
+</body>
+</html>

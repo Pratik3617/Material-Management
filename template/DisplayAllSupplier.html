@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>List of All Supplier</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel = "stylesheet" href = "https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css">
+    <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="/static/javascript/mm.js"></script>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        .form-container {
+            background: #d3d3d38f;
+            width: 100%;
+            height: 100vh;
+            padding-top: 1%;
+        }
+        .form-container2 {
+            background: #d3d3d38f;
+            width: 100%;
+            padding: 5%;
+        }
+
+        .form {
+            width: 70%;
+            margin: auto;
+            background-color: white;
+            padding: 1%;
+            border-radius: 10px;
+        }
+        .form2 {
+            width: 99%;
+            margin: auto;
+            background-color: white;
+            padding: 3%;
+            border-radius: 10px;
+        }
+
+        .heading {
+            display: flex;
+            justify-content:center;
+        }
+
+        .heading img {
+            width: 3%;
+            height: 2%;
+        }
+
+        .heading h2 {
+            font-size: 20px;
+            font-weight: bold;
+            letter-spacing: 1px;
+            margin-left: 6px;
+
+        }
+              .gap{
+            margin-top:10px;
+        }
+         .noimage{
+            display:flex;
+            justify-content:center;
+
+        }
+        .btnalign{
+            display:flex;
+            justify-content:center;
+            margin-top:2%;
+        }
+        .btn{
+            width:50%;
+        }
+
+        .Container{
+            margin-top:2%;
+        }
+        .gap2 {
+            margin-bottom: 1rem;
+        }
+        .set{
+            display:flex;
+            flex-direction:row;
+            margin-top:1rem;
+        }
+        .set input{
+            width:15.2rem;
+        }
+        .center {
+            display: flex;
+            justify-content: center;
+        }
+        button{
+            width:10rem;
+            color:#fff;
+            background:#3742fa;
+            border-radius:0.5rem;
+            border:none;
+            height:2.5rem;
+            font-weight:bold;
+            letter-spacing:2px;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <div class="form">
+                <div class="heading">
+                    <h2>Supplier List</h2>
+                </div>
+            <table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Supplier<br> Id-Name</th>
+      <th scope="col">Emailid</th>
+      <th scope="col">Mobile Number</th>
+      <th scope="col">Address</th>
+      <th scope="col">Update</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for row in rows %}
+    <tr>
+      <td>{{ row.0 }}-{{ row.1 }}</td>
+      <td>{{ row.2 }}</td>
+      <td>{{ row.3 }}</td>
+      <td>{{ row.4 }}<br>{{ row.7 }},{{ row.8}}</td>
+      <td>
+          <div>
+              <a class = "button is-primary modal-button" data="{{ row }}" data-target = "#modal">Edit/Delete</a>
+          </div>
+      </td>
+    </tr>
+   {% endfor %}
+  </tbody>
+</table>
+        </div>
+    </div>
+
+
+                <div id = "modal" class = "modal">
+               <div class = "modal-background"></div>
+               <div class = "modal-content ">
+    <div class="form-container2">
+        <div class="form2">
+            <form action="/editdeletesupplierdata">
+                <input type="hidden" name="spid" id="spid">
+                <div class="heading">
+                    <img src="/static/employee.png">
+                    <h2>Update Supplier</h2>
+                </div>
+                <div class="form-row gap">
+                    <div class="col">
+                        <input type="text" name="suppliername" id="suppliername" class="form-control" placeholder="Supplier Name">
+                    </div>
+                </div>
+                <div class="form-row gap">
+                    <div class="col">
+                        <input type="email" name="emailid" id="emailid" class="form-control" placeholder="Email Address">
+                    </div>
+                    <div class="col">
+                        <input type="text" name="mobileno" id="mobileno" class="form-control" placeholder="Mobile Number">
+                    </div>
+                </div>
+                <div class="form-row gap">
+                    <div class="col">
+                        <input type="text" name="address" id="address" class="form-control" placeholder=" Address">
+                    </div>
+                </div>
+                <div class="form-row gap">
+                    <div class="col">
+                        <select class="form-control" id="state" name="state">
+                            <option>-State-</option>
+                        </select>
+                    </div>
+                    <div class="col">
+                        <select class="form-control" id="city" name="city">
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row gap">
+                    <div class="col btnalign">
+                        <button type="submit" name="btn" value="Edit" class="btn btn-primary">Edit</button>
+                    </div>
+                    <div class="col btnalign">
+                        <button type="submit" name="btn" value="Delete" class="btn btn-primary">Delete</button>
+                    </div>
+                </div>
+                <div class="form-row gap">
+                    <div class="col btnalign">
+                        {% if status %}
+                        <div style="color:green; font-weight:bold;">Record Submitted Successfully...</div>
+                        {% elif status %}
+                        <div style="color:red; font-weight:bold;">Fail to submit record</div>
+                        {% endif %}
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+               </div>
+               <button class = "modal-close is-large" aria-label="close"></button>
+            </div>
+
+
+      <script>
+
+           function setdata(data){
+                  data=data.replace("(","")
+                  data=data.replace(")","")
+                  data=data.replaceAll("'","")
+                  data=data.split(",")
+                  return data;
+           }
+
+
+         $(".modal-button").click(function() {
+            var target = $(this).data("target");
+            var data=$(this).attr('data');
+            data=setdata(data)
+            $('#spid').val(data[0].trim());
+            $('#suppliername').val(data[1].trim());
+            $('#emailid').val(data[2].trim());
+            $('#mobileno').val(data[3].trim());
+            $('#address').val(data[4].trim());
+            $('#state').val(data[5].trim());
+            $('#city').append($('<option>').text(data[8].trim()).val(data[6].trim()));
+            $("html").addClass("is-clipped");
+            $(target).addClass("is-active");
+         });
+
+
+         $(".modal-close").click(function() {
+            $("html").removeClass("is-clipped");
+            $(this).parent().removeClass("is-active");
+         });
+      </script>
+</body>
+</html>

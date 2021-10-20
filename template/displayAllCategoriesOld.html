@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <title>Display All Categories</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+            letter-spacing: 1px;
+        }
+
+        .root {
+            padding: 1rem;
+        }
+
+        .center {
+            display: flex;
+            justify-content: center;
+        }
+        .Container-head img {
+            width: 3rem;
+            height: 3rem;
+        }
+
+        .Container {
+            width: 30rem;
+            height: auto;
+            padding: 1rem;
+            border-radius: 1rem;
+        }
+
+        .Container-head {
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .Container-head span {
+            font-size: 1.3rem;
+            font-weight: bold;
+            padding-left: .5rem;
+            color:#6F1E51;
+        }
+        td span{
+            cursor:pointer;
+            color:#3498db;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 100%;
+            overflow: auto;
+            background: rgba(0, 0, 0, 0.7);
+            border-radius:5px;
+        }
+
+        .modal-content {
+            background: #fff;
+            padding: 10px;
+            width:48vw;
+            height:52vh;
+            margin-top:24vh;
+            margin-left:26vw;
+        }
+
+        .modal-content1 {
+            background: #fff;
+            padding: 10px;
+            width:48vw;
+            height:60vh;
+            margin-top:20vh;
+            margin-left:24vw;
+        }
+
+        .modal-btn {
+            padding-left:5px;
+            padding-right:5px;
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .modal-btn span:first-child {
+            width:47vw;
+            font-size: 1.8rem;
+            font-weight: bold;
+            padding-left: .5rem;
+            color:#6F1E51;
+        }
+        .modal-btn span:last-child{
+            color: #222;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .closeBtn:hover,
+        .closeBtn:focus {
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .modal-Container {
+            width: 40rem;
+            height: auto;
+            padding: 1rem;
+            border-radius: 1rem;
+        }
+
+        .modal-head {
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .col {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .col input {
+            width: 36rem;
+        }
+        .gap {
+            margin-bottom: 1rem;
+        }
+        .Image img{
+            width:120px;
+        }
+        img{
+            cursor:pointer;
+        }
+        button{
+            width:17.5rem;
+            color:#fff;
+            background:#3742fa;
+            border-radius:0.5rem;
+            border:none;
+            height:2.5rem;
+            font-weight:bold;
+            letter-spacing:2px;
+        }
+        button:hover{
+            cursor:pointer;
+        }
+        .button{
+            width:20rem;
+            color:#fff;
+            background:#3742fa;
+            border-radius:0.5rem;
+            border:none;
+            height:2.5rem;
+            font-weight:bold;
+            letter-spacing:2px;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="root center">
+        <div class="Container">
+            <div class="Container-head center">
+                <span>
+                    List of Categories
+                </span>
+            </div>
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Category Name</th>
+                  <th>Icon</th>
+                    <th>Update</th>
+                </tr>
+              </thead>
+              <tbody>
+                  {% for row in rows %}
+                        <tr>
+                          <td>{{row.0}}</td>
+                          <td>{{row.1}}</td>
+                          <td><a class="pic" data="{{row}}"><img src="/static/Images/{{row.2}}" width="50"></a></td>
+                            <td><a class="Edit" data="{{row}}"><span>Edit / Delete</span></a></td>
+                        </tr>
+                  {% endfor %}
+              </tbody>
+            </table>
+
+
+            <div id="modal" class="modal">
+                <div class="modal-content ">
+                    <div class="modal-btn">
+                        <span class="center">CATEGORY INTERFACE</span><span class="closeBtn">&times;</span>
+                    </div>
+
+                    <div class="root center">
+
+                        <form action="/editdeleteCategory" >
+                            <input type="hidden" id="cid" name="cid">
+                            <input type="hidden" name="oldicon">
+                            <div class="modal-Container">
+
+                                <div class="col gap">
+                                    <div>
+                                        <input type="text" id="categoryName" name="categoryName" class="form-control" placeholder="Category Name">
+                                    </div>
+                                </div>
+
+                                <div class="gap Image center">
+                                    <img name="icon" id="icon">
+                                </div>
+
+                                <div class="col gap">
+                                    <button type="submit" name="btn" value="edit">EDIT</button>
+                                    <button type="submit" name="btn" value="delete">DELETE</button>
+                                </div>
+
+                            </div>
+                        </form>
+                    </div>
+
+
+
+                </div>
+            </div>
+
+
+
+            <div id="modal1" class="modal">
+                <div class="modal-content1 ">
+                    <div class="modal-btn">
+                        <span class="center">CATEGORY ICON</span><span class="closeBtn">&times;</span>
+                    </div>
+
+                    <div class="root center">
+
+                        <form action="/saveicon" method="post" enctype="multipart/form-data">{% csrf_token %}
+                            <input type="hidden" id="cid1" name="cid">
+                            <input type="hidden" id="oldicon" name="oldicon">
+                            <div class="Container center">
+                               <div>
+                                    <h4 class="center"></h4>
+                                    <div class="gap center">
+                                      <img id="icon1" width="100">
+                                    </div>
+
+                                    <div class="gap">
+                                        <b class="center">Select Image u want to replace with :</b>
+                                    </div>
+                                    <div class="set center gap">
+                                        <input type="file" accept="image/*" id="picture" name="icon" class="form-control">
+                                    </div>
+                                    <div class="gap center button">
+                                        <button type="submit">Save Picture</button>
+                                    </div>
+                               </div>
+                            </div>
+
+                        </form>
+
+                    </div>
+
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+<script>
+    <!--        convert string to list      -->
+    function setData(data){
+        data=data.replace("(","") ;
+        data=data.replace(")","");
+        data=data.replaceAll("'","");
+        data=data.split(",");
+        return data;
+    }
+    $(document).ready(function(){
+        $('.Edit').click(function(){
+            var data=$(this).attr('data')
+            $('#modal').show()
+            data=setData(data)
+
+            $('#cid').val(data[0].trim())
+            $('#categoryName').val(data[1].trim())
+            $('#icon').attr('src','/static/Images/'+(data[2].trim()))
+
+        })
+
+        $('.pic').click(function(){
+            $('#modal1').show();
+
+            var data=$(this).attr('data')
+            data=setData(data)
+            $('#cid1').val(data[0].trim())
+            $('h4').html(data[1].trim())
+            $('#icon1').attr('src','/static/Images/'+(data[2].trim()))
+            $('#oldicon').attr('src','/static/Images/'+(data[2].trim()))
+        })
+
+        $('.closeBtn').click(function(){
+            $('#modal').hide()
+            $('#modal1').hide()
+        })
+    })
+</script>
+
+</body>
+</html>
